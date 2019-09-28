@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class LCATest
 {
 
+	//test for Node class constructor
     @Test
     public void testNodeConstructor()
     {
@@ -23,6 +24,19 @@ public class LCATest
       assertNull("Node class constructor testing failed. - test.left", test.left);
       assertNull("Node class constructor testing failed. - test.right", test.right);
     }
+    
+    //test for LCASolution class constructor
+    @Test
+    public void testLCASolutionConstructor()
+    {
+    	LCASolution testSolution = new LCASolution();
+    	assertEquals("LCASolution class constructor testing failed - testSolution.lca", -1, testSolution.lca);
+    	assertNotNull("LCASolution class constructor testing failed - testSolution.path1", testSolution.path1);
+    	assertNotNull("LCASolution class constructor testing failed - testSolution.path2", testSolution.path2);
+    	
+    }
+    
+    
 
 
     
