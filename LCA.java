@@ -16,6 +16,13 @@ class LCASolution{
     ArrayList<Integer> path1;
     ArrayList<Integer> path2;
     int lca;
+    
+    LCASolution () {
+        path1 = new ArrayList<Integer>();
+        path2 = new ArrayList<Integer>();
+        lca = -1;
+    	
+    }
 
     //find path from root node to target node
     boolean findpath (Node root, int target, ArrayList<Integer> path){
