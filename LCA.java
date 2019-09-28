@@ -15,7 +15,9 @@ class Node{
 class LCASolution{
     ArrayList<Integer> path1;
     ArrayList<Integer> path2;
+    int lca;
 
+    //find path from root node to target node
     boolean findpath (Node root, int target, ArrayList<Integer> path){
 
         if (root == null){
@@ -36,6 +38,38 @@ class LCASolution{
         return false;
     }
 
+    //compare 2 paths and find LCA
+    boolean findlca (Node root, int target1, int target2){
+        path1.clear();
+        path2.clear();
+        
+
+        boolean find1 = findpath(root, target1, path1);
+        boolean find2 = findpath(root, target2, path2);
+
+        if (find1 == false || find2 == false){
+            return false;
+        }
+        
+        int size1 = path1.size();
+        int size2 = path2.size();
+
+        int i = 0;
+        while (i < size1 && i < size2){
+            if (path1.get(i) != path2.get(i)){
+                break;
+            }
+
+            i++;
+        }
+
+        lca = path1.get(i - 1);
+        return true;
+    }
+    
+
+    //for testing purposes
+    /*
     public static void main(String[] args) {
         Node tree = new Node(3);
         tree.left = new Node(2);
@@ -46,9 +80,11 @@ class LCASolution{
         LCASolution solution = new LCASolution();
         solution.path1 = new ArrayList<Integer>();
         solution.path2 = new ArrayList<Integer>();
-        System.out.println(solution.findpath(tree, 2, solution.path1));
-        System.out.println(solution.findpath(tree, 5, solution.path1));
-        System.out.println(solution.findpath(tree, 10, solution.path1));
+
+        System.out.println(solution.findlca(tree, 2, 5) + " " + solution.lca);
+        System.out.println(solution.findlca(tree, 2, 10) + " " + solution.lca);
+        System.out.println(solution.findlca(tree, 2, 1) + " " + solution.lca);
     }
+    */
 
 }
