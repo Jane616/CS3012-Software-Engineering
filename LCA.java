@@ -50,6 +50,9 @@ class LCASolution{
         path1.clear();
         path2.clear();
         
+        if (target1 == target2) {
+        	return false;
+        }
 
         boolean find1 = findpath(root, target1, path1);
         boolean find2 = findpath(root, target2, path2);
