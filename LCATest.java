@@ -109,6 +109,33 @@ public class LCATest
     	assertFalse("findpathDepth3Binary test failed - return value - 8", testSolution.findpath(testRoot, 8, testSolution.path1));
     	assertEquals("findpathDepth3Binary test failed - recorded path - 8", testpath8, testSolution.path1);
     }
+    
+    //test for findlca method with invalid tree input
+    @Test
+    public void testfindlcaInvalidTree() {
+    	LCASolution testSolution = new LCASolution();
+    	assertFalse("findlcaInvalidTree test failed - return value", testSolution.findlca(null, 1, 2));
+    	assertEquals("findlcaInvalidTree test failed - recorded lca", -1, testSolution.lca);
 
+    }
+    
+    //test for findlca method with invalid target inputs
+    @Test
+    public void testfindlcaInvalidTarget() {
+    	Node Root = new Node(1);
+    	Root.left = new Node(2);
+    	Root.right = new Node(3);
+    	
+    	LCASolution testSolution = new LCASolution();
+    	//target 1 is invalid
+    	assertFalse("findlcaInvalidTarget test failed - return value - 0, 1", testSolution.findlca(Root, 0, 1));
+    	//target 2 is invalid
+    	assertFalse("findlcaInvalidTarget test failed - return value - 1, 0", testSolution.findlca(Root, 1, 0));
+    	//both targets are invalid
+    	assertFalse("findlcaInvalidTarget test failed - return value - 0, 0", testSolution.findlca(Root, 0, 0));
+    	// both targets are in the tree but they are the same node
+    	assertFalse("findlcaInvalidTarget test failed - return value - 1, 1", testSolution.findlca(Root, 1, 1));
+    
+    }
     
 }
