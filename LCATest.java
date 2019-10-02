@@ -137,5 +137,28 @@ public class LCATest
     	assertFalse("findlcaInvalidTarget test failed - return value - 1, 1", testSolution.findlca(Root, 1, 1));
     
     }
+	
+    //test for findlca method with a depth 3 binary tree
+    @Test
+    public void testfindlcaDepth3Binary ( ) {
+    	Node Root = new Node (1);
+    	Root.left = new Node (2);
+    	Root.right = new Node (3);
+    	Root.left.left = new Node (4);
+    	Root.left.right = new Node (5);
+    	Root.right.left = new Node (6);
+    	Root.right.right = new Node (7);
+    	
+    	LCASolution testSolution = new LCASolution ();
+    	//when the root node is LCA
+    	assertTrue("findlcaDepth3Binary test failed - return value - 4, 7", testSolution.findlca(Root, 4, 7));
+    	assertEquals("findlcaDepth3Binary test failed - recorded lca - 4, 7",1, testSolution.lca);
+    	//when one of the target nodes is the ancestor of the other
+    	assertTrue("findlcaDepth3Binary test failed - return value - 2, 5", testSolution.findlca(Root, 2, 5));
+    	assertEquals("findlcaDepth3Binary test failed - recorded lca - 2, 5",2, testSolution.lca);
+    	//common situation
+    	assertTrue("findlcaDepth3Binary test failed - return value - 4, 5", testSolution.findlca(Root, 4, 5));
+    	assertEquals("findlcaDepth3Binary test failed - recorded lca - 4, 5",2, testSolution.lca);
+    }
     
 }
