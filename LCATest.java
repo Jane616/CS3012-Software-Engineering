@@ -160,5 +160,27 @@ public class LCATest
     	assertTrue("findlcaDepth3Binary test failed - return value - 4, 5", testSolution.findlca(Root, 4, 5));
     	assertEquals("findlcaDepth3Binary test failed - recorded lca - 4, 5",2, testSolution.lca);
     }
+
+    //test for findlca method with a tree whose nodes may have multiple parents
+    @Test
+    public void testfindlcaMulParent() {
+    	Node Root = new Node (1);
+    	Root.left = new Node (2);
+    	Root.right = new Node (3);
+    	Node tmp = new Node (5);
+    	Root.left.left = new Node (4);
+    	Root.left.right = tmp;
+    	Root.right.left = tmp;
+    	Root.right.right = new Node (6);
+    	
+    	LCASolution testSolution = new LCASolution();
+    	//find lca by left parent's path
+    	assertTrue("findlcaMulParent test failed - return value - 4, 5", testSolution.findlca(Root, 4, 5));
+    	assertEquals("findlcaMulParent test failed - recorded lca - 4, 5",2, testSolution.lca);
+    	//find lca by right parent's path
+    	//test failed because only recorded path through left parent
+    	assertTrue("findlcaMulParent test failed - return value - 6, 5", testSolution.findlca(Root, 6, 5));
+    	assertEquals("findlcaMulParent test failed - recorded lca - 6, 5",3, testSolution.lca);
+    }
     
 }
