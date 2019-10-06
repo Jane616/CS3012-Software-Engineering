@@ -178,9 +178,31 @@ public class LCATest
     	assertTrue("findlcaMulParent test failed - return value - 4, 5", testSolution.findlca(Root, 4, 5));
     	assertEquals("findlcaMulParent test failed - recorded lca - 4, 5",2, testSolution.lca);
     	//find lca by right parent's path
-    	//test failed because only recorded path through left parent
+    	//test failed because program only recorded path through left parent
     	assertTrue("findlcaMulParent test failed - return value - 6, 5", testSolution.findlca(Root, 6, 5));
     	assertEquals("findlcaMulParent test failed - recorded lca - 6, 5",3, testSolution.lca);
+    }
+	
+    //test for findlca method with a tree with duplicated nodes
+    @Test
+    public void testfindlcaDupNodes() {
+    	Node Root = new Node (1);
+    	Root.left = new Node (2);
+    	Root.right = new Node (3);
+    	Root.left.left = new Node (4);
+    	Root.left.right = new Node (5);
+    	Root.right.left = new Node (5);
+    	Root.right.right = new Node (6);
+    	
+    	LCASolution testSolution = new LCASolution();
+    	//find lca by node in left branch
+    	assertTrue("findlcaDupNodes test failed - return value - 4, 5", testSolution.findlca(Root, 4, 5));
+    	assertEquals("findlcaDupNodes test failed - recorded lca - 4, 5", 2, testSolution.lca);
+    	//find lca by duplicated node in right branch
+    	//test failed because program ended after recording path to left branch node
+    	assertTrue("findlcaDupNodes test failed - return value - 3, 5", testSolution.findlca(Root, 3, 5));
+    	assertEquals("findlcaDupNodes test failed - recorded lca - 3, 5", 3, testSolution.lca);
+    	
     }
     
 }
