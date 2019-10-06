@@ -78,23 +78,5 @@ class LCASolution{
     }
     
 
-    //for testing purposes
-    /*
-    public static void main(String[] args) {
-        Node tree = new Node(3);
-        tree.left = new Node(2);
-        tree.left.right = new Node(1);
-        tree.right = new Node(4);
-        tree.right.left = new Node(5);
-
-        LCASolution solution = new LCASolution();
-        solution.path1 = new ArrayList<Integer>();
-        solution.path2 = new ArrayList<Integer>();
-
-        System.out.println(solution.findlca(tree, 2, 5) + " " + solution.lca);
-        System.out.println(solution.findlca(tree, 2, 10) + " " + solution.lca);
-        System.out.println(solution.findlca(tree, 2, 1) + " " + solution.lca);
-    }
-    */
 
 }
