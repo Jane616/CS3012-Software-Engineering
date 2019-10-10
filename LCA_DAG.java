@@ -23,6 +23,17 @@ class LCASolution{
         lca = -1;
     	
     }
+    
+    int size(Node root) {
+    	
+    	//base case
+    	if (root == null) {
+    	return 0;
+    	}
+    	
+    	//recursion
+    	return 1 + size(root.left) + size(root.right);
+    }
 
     //find path from root node to target node
     boolean findpath (Node root, int target, ArrayList<Integer> path){
@@ -77,6 +88,5 @@ class LCASolution{
         return true;
     }
     
-
 
 }
