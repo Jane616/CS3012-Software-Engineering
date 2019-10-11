@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Queue;
 import java.util.LinkedList;
 
@@ -69,17 +70,38 @@ class LCASolution{
             return false;
         }
 
-        path.add(root.data);
+        int index = data.indexOf(root.data);
+        path.set(index, path.get(index) + 1);
+        
         if (root.data == target){
             return true;
         }
 
-        if (findpath(root.left, target, path) || findpath(root.right, target, path)){
+        boolean left = findpath(root.left, target, path);
+        boolean right = findpath(root.right, target, path);
+        
+        if (left || right){
+        	//handling multiple routes
+        	int route_left = 0;
+        	int route_right = 0;
+        	
+        	if (root.left != null) {
+        		int index_left = data.indexOf(root.left.data);
+        		route_left = path.get(index_left);
+        	}
+        	
+        	if (root.right != null) {
+        		int index_right = data.indexOf(root.right.data);
+        		route_right = path.get(index_right);
+        	}
+        	
+        	path.set(index, (route_left + route_right));
+        	
             return true;
         }
 
         // remove this node from recorded path if target node is not in its children
-        path.remove(path.size() - 1);
+        path.set(index, path.get(index) - 1);
         return false;
     }
 
@@ -91,7 +113,19 @@ class LCASolution{
         if (target1 == target2) {
         	return false;
         }
-
+        
+        int len = size_traverse(root);
+        //empty tree
+        if (len == 0) {
+        	return false;
+        }
+        
+        //initialize path
+        //path record number of possible routes that 
+        //pass through this corresponding node in ArrayList data
+        path1 = new ArrayList<Integer>(Collections.nCopies(len, 0));
+        path2 = new ArrayList<Integer>(Collections.nCopies(len, 0));
+        
         boolean find1 = findpath(root, target1, path1);
         boolean find2 = findpath(root, target2, path2);
 
@@ -124,10 +158,18 @@ class LCASolution{
     	Node tmp = new Node(4);
     	test.right.left = tmp;
     	test.right.right = new Node(5);
-    	test.right.right.left = tmp;
+    	test.left.right = tmp;
     	
     	LCASolution lca = new LCASolution();
     	System.out.println(lca.size_traverse(test));
     	System.out.println(lca.data.toString());
+    	
+    	lca.path1 = new ArrayList<Integer>(Collections.nCopies(6, 0));
+    	System.out.println(lca.findpath(test, 6, lca.path1));
+    	System.out.println(lca.path1.toString());
+    	
+    	lca.path1 = new ArrayList<Integer>(Collections.nCopies(6, 0));
+    	System.out.println(lca.findpath(test, 4, lca.path1));
+    	System.out.println(lca.path1.toString());
     }
 }
