@@ -40,9 +40,12 @@ class LCASolution{
     	q.add(root);
     	while (q.isEmpty() == false) {
     		Node cur = q.remove();
-    		if (data.contains(cur.data) == false) {
-        	data.add(cur.data);
+    		
+    		if (data.contains(cur.data)) //update data according to depth
+    		{
+    			data.remove(cur.data);
     		}
+    		data.add(cur.data);
     		
     		if (cur.left != null) {
     			q.add(cur.left);
@@ -61,6 +64,7 @@ class LCASolution{
     //find path from root node to target node
     boolean findpath (Node root, int target, ArrayList<Integer> path){
 
+    	//handling empty DAG
         if (root == null){
             return false;
         }
