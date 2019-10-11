@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Queue;
+import java.util.LinkedList;
 
 class Node{
     int data;
@@ -15,24 +17,45 @@ class Node{
 class LCASolution{
     ArrayList<Integer> path1;
     ArrayList<Integer> path2;
+    ArrayList<Integer> data;	//record nodes data in DAG 
     int lca;
     
     LCASolution () {
         path1 = new ArrayList<Integer>();
         path2 = new ArrayList<Integer>();
+        data = new ArrayList<Integer>();
         lca = -1;
     	
     }
     
-    int size(Node root) {
+    int size_traverse(Node root) {
     	
-    	//base case
+    	//handling empty graph
     	if (root == null) {
     	return 0;
     	}
     	
-    	//recursion
-    	return 1 + size(root.left) + size(root.right);
+    	//perform BFS traverse
+    	Queue<Node> q = new LinkedList<Node>();
+    	q.add(root);
+    	while (q.isEmpty() == false) {
+    		Node cur = q.remove();
+    		if (data.contains(cur.data) == false) {
+        	data.add(cur.data);
+    		}
+    		
+    		if (cur.left != null) {
+    			q.add(cur.left);
+    		}
+    		
+    		if (cur.right != null) {
+    			q.add(cur.right);
+    		}
+    	}
+    	
+    	return data.size();
+    	
+
     }
 
     //find path from root node to target node
@@ -89,4 +112,18 @@ class LCASolution{
     }
     
 
+    public static void main (String[] args) {
+    	Node test = new Node(1);
+    	test.left = new Node(2);
+    	test.right = new Node(3);
+    	test.left.left = new Node(6);
+    	Node tmp = new Node(4);
+    	test.right.left = tmp;
+    	test.right.right = new Node(5);
+    	test.right.right.left = tmp;
+    	
+    	LCASolution lca = new LCASolution();
+    	System.out.println(lca.size_traverse(test));
+    	System.out.println(lca.data.toString());
+    }
 }
