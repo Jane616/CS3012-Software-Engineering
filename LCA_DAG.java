@@ -19,14 +19,25 @@ class LCASolution{
     ArrayList<Integer> path1;
     ArrayList<Integer> path2;
     ArrayList<Integer> data;	//record nodes data in DAG 
+    ArrayList<Integer> curpath;	//record the current path being examined
     int lca;
     
     LCASolution () {
         path1 = new ArrayList<Integer>();
         path2 = new ArrayList<Integer>();
         data = new ArrayList<Integer>();
+        curpath = new ArrayList<Integer>();
         lca = -1;
     	
+    }
+    
+    //add records of successful path
+    void add_path(ArrayList<Integer> path) {
+    	for (int i = 0; i < curpath.size(); i++) {
+    		int nodeData = curpath.get(i);
+    		int index = data.indexOf(nodeData);
+    		path.set(index, (path.get(index) + 1));
+    	}
     }
     
     int size_traverse(Node root) {
@@ -70,18 +81,29 @@ class LCASolution{
             return false;
         }
 
-        int index = data.indexOf(root.data);
-        path.set(index, path.get(index) + 1);
+        curpath.add(root.data);
         
         if (root.data == target){
+        	System.out.println(curpath.toString());
+        	add_path(path);
             return true;
         }
 
         boolean left = findpath(root.left, target, path);
+
+        
+        if (left) {
+        	curpath.remove(curpath.indexOf(root.left.data));
+        }
+        
         boolean right = findpath(root.right, target, path);
         
+        if (right) {
+        	curpath.remove(curpath.indexOf(root.right.data));
+        }
+        
         if (left || right){
-        	//handling multiple routes
+        	/*//handling multiple routes
         	int route_left = 0;
         	int route_right = 0;
         	
@@ -96,12 +118,12 @@ class LCASolution{
         	}
         	
         	path.set(index, (route_left + route_right));
-        	
+        	*/
             return true;
         }
 
         // remove this node from recorded path if target node is not in its children
-        path.set(index, path.get(index) - 1);
+        curpath.remove(curpath.indexOf(root.data));
         return false;
     }
 
@@ -159,6 +181,7 @@ class LCASolution{
     	test.right.left = tmp;
     	test.right.right = new Node(5);
     	test.left.right = tmp;
+    	test.right.right.left = tmp;
     	
     	LCASolution lca = new LCASolution();
     	System.out.println(lca.size_traverse(test));
@@ -166,10 +189,12 @@ class LCASolution{
     	
     	lca.path1 = new ArrayList<Integer>(Collections.nCopies(6, 0));
     	System.out.println(lca.findpath(test, 6, lca.path1));
+    	lca.curpath.clear();
     	System.out.println(lca.path1.toString());
     	
     	lca.path1 = new ArrayList<Integer>(Collections.nCopies(6, 0));
     	System.out.println(lca.findpath(test, 4, lca.path1));
+    	lca.curpath.clear();
     	System.out.println(lca.path1.toString());
     }
 }
