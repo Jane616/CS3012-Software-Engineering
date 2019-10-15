@@ -40,6 +40,19 @@ class LCASolution{
     	}
     }
     
+    // find max value in an ArrayList
+    int findmax (ArrayList<Integer> path) {
+    	int max = path.get(0);
+    	int size = path.size();
+    	for (int i = 1; i < size; i++) {
+    		if (path.get(i) > max) {
+    			max = path.get(i);
+    		}
+    	}
+    	return max;
+    }
+    
+    
     int size_traverse(Node root) {
     	
     	//handling empty graph
@@ -84,7 +97,6 @@ class LCASolution{
         curpath.add(root.data);
         
         if (root.data == target){
-        	System.out.println(curpath.toString());
         	add_path(path);
             return true;
         }
@@ -103,22 +115,6 @@ class LCASolution{
         }
         
         if (left || right){
-        	/*//handling multiple routes
-        	int route_left = 0;
-        	int route_right = 0;
-        	
-        	if (root.left != null) {
-        		int index_left = data.indexOf(root.left.data);
-        		route_left = path.get(index_left);
-        	}
-        	
-        	if (root.right != null) {
-        		int index_right = data.indexOf(root.right.data);
-        		route_right = path.get(index_right);
-        	}
-        	
-        	path.set(index, (route_left + route_right));
-        	*/
             return true;
         }
 
@@ -129,45 +125,56 @@ class LCASolution{
 
     //compare 2 paths and find LCA
     boolean findlca (Node root, int target1, int target2){
+        data = new ArrayList<Integer>();
         path1.clear();
         path2.clear();
+        lca = -1;
         
+        //handling invalid target input
         if (target1 == target2) {
         	return false;
         }
         
-        int len = size_traverse(root);
-        //empty tree
-        if (len == 0) {
-        	return false;
-        }
-        
+    	int size = size_traverse(root);
+    	
+    	//handling empty tree input
+    	if (size == 0) {
+    		return false;
+    	}
+    	
+
         //initialize path
         //path record number of possible routes that 
         //pass through this corresponding node in ArrayList data
-        path1 = new ArrayList<Integer>(Collections.nCopies(len, 0));
-        path2 = new ArrayList<Integer>(Collections.nCopies(len, 0));
+        path1 = new ArrayList<Integer>(Collections.nCopies(size, 0));
+        path2 = new ArrayList<Integer>(Collections.nCopies(size, 0));
         
+        curpath = new ArrayList<Integer>();
         boolean find1 = findpath(root, target1, path1);
+        curpath = new ArrayList<Integer>();
         boolean find2 = findpath(root, target2, path2);
 
+        //if target node not in tree
         if (find1 == false || find2 == false){
             return false;
         }
         
-        int size1 = path1.size();
-        int size2 = path2.size();
-
-        int i = 0;
-        while (i < size1 && i < size2){
-            if (path1.get(i) != path2.get(i)){
-                break;
-            }
-
-            i++;
+        //find lca
+        int max1 = findmax(path1);
+        int max2 = findmax(path2);
+        
+        for (int i = 0; i < size; i++) {
+        	int numpath1 = path1.get(i);
+        	int numpath2 = path2.get(i);
+        	
+        	if (numpath1 == max1) {
+        		if (numpath2 == max2) {
+        			lca = data.get(i);
+        			break;
+        		}
+        	}
         }
-
-        lca = path1.get(i - 1);
+    
         return true;
     }
     
@@ -184,17 +191,13 @@ class LCASolution{
     	test.right.right.left = tmp;
     	
     	LCASolution lca = new LCASolution();
-    	System.out.println(lca.size_traverse(test));
-    	System.out.println(lca.data.toString());
+    	lca.findlca(test, 4, 5);
+    	System.out.println(lca.lca);
+    	lca.findlca(test, 1, 5);
+    	System.out.println(lca.lca);
+    	lca.findlca(test, 1, 2);
+    	System.out.println(lca.lca);
+
     	
-    	lca.path1 = new ArrayList<Integer>(Collections.nCopies(6, 0));
-    	System.out.println(lca.findpath(test, 6, lca.path1));
-    	lca.curpath.clear();
-    	System.out.println(lca.path1.toString());
-    	
-    	lca.path1 = new ArrayList<Integer>(Collections.nCopies(6, 0));
-    	System.out.println(lca.findpath(test, 4, lca.path1));
-    	lca.curpath.clear();
-    	System.out.println(lca.path1.toString());
     }
 }
