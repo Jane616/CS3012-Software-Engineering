@@ -2,9 +2,17 @@
 Files for TCD CS3012 courseworks
 By Ruijie Xiong
 
+# Documentations
+LCA.java and LCATest.java is created for Development Task 1, solving the LCA problem in a binary tree, details are as below.
+
+LCA_DAG.java and LCA_DAGTest.java is created in a new branch (DAG) to solve Development Task 2, and LCA_DAG.java is modified from the original LCA.java, details are as below. Commits to implement and test LCA for DAG are then performed on the new DAG branch, while a few commits are made in the master branch for LCA.java.
+
+The DAG branch is then merged with the master branch after the DAG implementation is finished.
+
 # Development Task 1
 
 LCA.java is the source code for solving the LCA problem in a binary tree.
+
 LCATest.java is the JUnit test code for the methods in LCA.java.
 
 LCA.java and LCATest.java should be opened and tested in a Eclipse java project, under the default package in src folder, and project initiated with javaSE 1.8 standard library. The JUnit 4 library should also be included as well.
@@ -16,6 +24,7 @@ Some tests in LCATest.java fail because the solution in LCA.java cannot cope wit
 # Development Task 2
 
 LCA_DAG.java is the source code for solving the LCA problem in a Directed Acyclic Graph.
+
 LCA_DAGTest.java is the JUnit test code for the methods in LCA_DAG.java
 
 LCA.java and LCATest.java should be opened and tested in a Eclipse java project, under the default package in src folder, and project initiated with javaSE 1.8 standard library. The JUnit 4 library should also be included as well.
