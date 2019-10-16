@@ -7,7 +7,7 @@ LCA.java and LCATest.java is created for Development Task 1, solving the LCA pro
 
 LCA_DAG.java and LCA_DAGTest.java is created in a new branch (DAG) to solve Development Task 2, and LCA_DAG.java is modified from the original LCA.java, details are as below. Commits to implement and test LCA for DAG are then performed on the new DAG branch, while a few commits are made in the master branch for LCA.java.
 
-The DAG branch is then merged with the master branch after the DAG implementation is finished.
+The DAG branch is then merged with the master branch after the DAG implementation is finished. The DAG branch is not deleted, as the commits made in DAG can be viewed seperately.
 
 # Development Task 1
 
