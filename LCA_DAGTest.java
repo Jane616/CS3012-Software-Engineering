@@ -178,6 +178,25 @@ public class LCA_DAGTest
     	assertTrue("findlca test failed - regular input - return value", testSolution.findlca(root, 7, 6));
     	assertEquals("findlca test failed - regular input - recorded lca", 3, testSolution.lca);
     }
+    
+    //test for situation where both target nodes have multiple paths from root node
+    @Test
+    public void testMulpath () {
+    	Node root = new Node(1);
+    	Node tmp = new Node(2);
+    	root.left = tmp;
+    	root.right = new Node(3);
+    	root.right.left = tmp;
+    	tmp = new Node(4);
+    	root.left.left = tmp;
+    	root.left.right = new Node(5);
+    	root.left.right.left = tmp;
+    	
+    	LCASolution testSolution = new LCASolution();
+    	assertTrue("testMulpath failed - input 4, 5 - return value", testSolution.findlca(root, 4, 5));
+    	assertEquals("testMulpath failed - input 4, 5 - recorded lca", 2, testSolution.lca);
+    	
+    }
 
     
 }
