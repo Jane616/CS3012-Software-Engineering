@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 //-------------------------------------------------------------------------
 /**
@@ -37,3 +38,42 @@ public class LCA_DAGTest
     	assertNotNull("LCASolution class constructor testing failed - testSolution.curpath", testSolution.curpath);
     	
     }
+    
+    //test for findmax method
+    @Test
+    public void testFindmax() {
+    	ArrayList<Integer> path = new ArrayList<Integer>();
+    	path.add(1);
+    	path.add(10);
+    	path.add(5);
+    	LCASolution testSolution = new LCASolution();
+    	
+    	assertEquals("findmax test failed - return value", 10, testSolution.findmax(path) );
+    }
+    
+    @Test
+    public void testAdd_path() {
+    	LCASolution testSolution = new LCASolution();
+    	testSolution.path1 = new ArrayList<Integer>(Collections.nCopies(4, 0));
+    	testSolution.path2 = new ArrayList<Integer>(Collections.nCopies(4, 0));
+    	testSolution.data.add(1);
+    	testSolution.data.add(3);
+    	testSolution.data.add(2);
+    	testSolution.data.add(4);
+    	testSolution.curpath.add(1);
+    	testSolution.curpath.add(3);
+    	testSolution.curpath.add(4);
+    	
+    	ArrayList<Integer> result_path = new ArrayList<Integer> ();
+    	result_path.add(1);
+    	result_path.add(1);
+    	result_path.add(0);
+    	result_path.add(1);
+    	
+    	testSolution.add_path(testSolution.path1);
+    	assertEquals("add_path test failed - recorded path", result_path, testSolution.path1);
+    	
+    }
+
+    
+}
