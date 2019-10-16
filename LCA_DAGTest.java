@@ -144,8 +144,39 @@ public class LCA_DAGTest
     	result_path.add(2);
     	assertTrue("findpath test failed - regular input - return value", testSolution.findpath(root, 5, testSolution.path1));
     	assertEquals("findpath test failed - regular input - recorded path", result_path,testSolution.path1);
+    }
+    
+    //test for findlca method
+    @Test
+    public void testFindlca() {
+    	LCASolution testSolution = new LCASolution();
+    	Node root = new Node(1);
+    	root.left = new Node(2);
+    	root.right = new Node(3);
+    	root.left.left = new Node(4);
+    	root.right.right = new Node(6);
+    	Node tmp = new Node(5);
+    	root.left.right = tmp;
+    	root.right.left = tmp;
     	
+    	//test for empty DAG input
+    	assertFalse("findlca test failed - empty DAG input - return value", testSolution.findlca(null, 1, 2));
     	
+    	//test for invalid target input
+    	assertFalse("findlca test failed - same target input - return value", testSolution.findlca(root, 1, 1));
+    	assertFalse("findlca test failed - target1 non exist - return value", testSolution.findlca(root, 10, 2));
+    	assertFalse("findlca test failed - target2 non exist - return value", testSolution.findlca(root, 2, 10));
+    	assertFalse("findlca test failed - targets non exist - return value", testSolution.findlca(root, 20, 10));
+    	
+    	//test for regular input
+    	//result is root node
+    	assertTrue("findlca test failed - lca is root - return value", testSolution.findlca(root, 5, 6));
+    	assertEquals("findlca test failed - lca is root - recorded lca", 1, testSolution.lca);
+    	
+    	//result is not root node
+    	root.right.left = new Node(7);
+    	assertTrue("findlca test failed - regular input - return value", testSolution.findlca(root, 7, 6));
+    	assertEquals("findlca test failed - regular input - recorded lca", 3, testSolution.lca);
     }
 
     
