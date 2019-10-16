@@ -68,7 +68,7 @@ class LCASolution{
     		
     		if (data.contains(cur.data)) //update data according to depth
     		{
-    			data.remove(cur.data);
+    			data.remove((Integer)cur.data);
     		}
     		data.add(cur.data);
     		
@@ -105,13 +105,13 @@ class LCASolution{
 
         
         if (left) {
-        	curpath.remove(curpath.indexOf(root.left.data));
+        	curpath.remove((Integer)root.left.data);
         }
         
         boolean right = findpath(root.right, target, path);
         
         if (right) {
-        	curpath.remove(curpath.indexOf(root.right.data));
+        	curpath.remove((Integer)root.right.data);
         }
         
         if (left || right){
@@ -119,7 +119,7 @@ class LCASolution{
         }
 
         // remove this node from recorded path if target node is not in its children
-        curpath.remove(curpath.indexOf(root.data));
+        curpath.remove((Integer)root.data);
         return false;
     }
 
