@@ -162,6 +162,7 @@ class LCASolution{
         //find lca
         int max1 = findmax(path1);
         int max2 = findmax(path2);
+        int cur_lca = data.get(0);
         
         for (int i = 0; i < size; i++) {
         	int numpath1 = path1.get(i);
@@ -169,35 +170,14 @@ class LCASolution{
         	
         	if (numpath1 == max1) {
         		if (numpath2 == max2) {
-        			lca = data.get(i);
-        			break;
+        			cur_lca = data.get(i);
         		}
         	}
         }
-    
+        
+       lca = cur_lca;
         return true;
     }
     
 
-    public static void main (String[] args) {
-    	Node test = new Node(1);
-    	test.left = new Node(2);
-    	test.right = new Node(3);
-    	test.left.left = new Node(6);
-    	Node tmp = new Node(4);
-    	test.right.left = tmp;
-    	test.right.right = new Node(5);
-    	test.left.right = tmp;
-    	test.right.right.left = tmp;
-    	
-    	LCASolution lca = new LCASolution();
-    	lca.findlca(test, 4, 5);
-    	System.out.println(lca.lca);
-    	lca.findlca(test, 1, 5);
-    	System.out.println(lca.lca);
-    	lca.findlca(test, 1, 2);
-    	System.out.println(lca.lca);
-
-    	
-    }
 }
