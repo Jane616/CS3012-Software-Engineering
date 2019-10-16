@@ -51,6 +51,7 @@ public class LCA_DAGTest
     	assertEquals("findmax test failed - return value", 10, testSolution.findmax(path) );
     }
     
+    //test for add_path method
     @Test
     public void testAdd_path() {
     	LCASolution testSolution = new LCASolution();
@@ -66,12 +67,48 @@ public class LCA_DAGTest
     	
     	ArrayList<Integer> result_path = new ArrayList<Integer> ();
     	result_path.add(1);
-    	result_path.add(1);
+    	result_path.add(1); 
     	result_path.add(0);
     	result_path.add(1);
     	
     	testSolution.add_path(testSolution.path1);
     	assertEquals("add_path test failed - recorded path", result_path, testSolution.path1);
+    	
+    }
+    
+    //test for size_traverse method
+    @Test
+    public void testSize_traverse() {
+    	Node root = new Node(1);
+    	root.left = new Node(2);
+    	root.right = new Node(3);
+    	root.left.left = new Node(4);
+    	Node tmp = new Node(5);
+    	root.left.right = tmp;
+    	root.right.left = new Node(6);
+    	root.right.right = new Node(7);
+    	root.right.left.left = tmp;
+    	
+    	ArrayList<Integer> result_data = new ArrayList<Integer> ();
+    	result_data.add(1);
+    	result_data.add(2);
+    	result_data.add(3);
+    	result_data.add(4);
+    	result_data.add(6);
+    	result_data.add(7);
+    	result_data.add(5);
+    	
+    	LCASolution testSolution = new LCASolution();
+    	//test for empty tree input
+    	assertEquals("size_traverse test failed - empty tree input - return value", 0, testSolution.size_traverse(null));
+    	
+    	//test for non-empty tree input
+    	assertEquals("size_traverse test failed - non-empty tree input - return value", 7, testSolution.size_traverse(root));
+    	System.out.println(testSolution.data);
+    	assertEquals("size_traverse test failed - non-empty tree input - recored data", result_data, testSolution.data);
+    	
+    	
+    	
     	
     }
 
