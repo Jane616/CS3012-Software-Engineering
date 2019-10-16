@@ -1,3 +1,4 @@
+
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -159,6 +160,10 @@ public class LCATest
     	//common situation
     	assertTrue("findlcaDepth3Binary test failed - return value - 4, 5", testSolution.findlca(Root, 4, 5));
     	assertEquals("findlcaDepth3Binary test failed - recorded lca - 4, 5",2, testSolution.lca);
+    	assertTrue("findlcaDepth3Binary test failed - return value - 4, 3", testSolution.findlca(Root, 4, 3));
+    	assertEquals("findlcaDepth3Binary test failed - recorded lca - 4, 3",1, testSolution.lca);
+	assertTrue("findlcaDepth3Binary test failed - return value - 4, 3", testSolution.findlca(Root, 3, 4));
+    	assertEquals("findlcaDepth3Binary test failed - recorded lca - 4, 3",1, testSolution.lca);
     }
 
     //test for findlca method with a tree whose nodes may have multiple parents
@@ -204,5 +209,3 @@ public class LCATest
     	assertEquals("findlcaDupNodes test failed - recorded lca - 3, 5", 3, testSolution.lca);
     	
     }
-    
-}
