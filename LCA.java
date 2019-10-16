@@ -65,7 +65,7 @@ class LCASolution{
         int size2 = path2.size();
 
         int i = 0;
-        while (i < size1 && i < size2){
+        while (i < Math.min(size1, size2)){
             if (path1.get(i) != path2.get(i)){
                 break;
             }
