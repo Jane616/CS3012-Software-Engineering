@@ -104,10 +104,46 @@ public class LCA_DAGTest
     	
     	//test for non-empty tree input
     	assertEquals("size_traverse test failed - non-empty tree input - return value", 7, testSolution.size_traverse(root));
-    	System.out.println(testSolution.data);
     	assertEquals("size_traverse test failed - non-empty tree input - recored data", result_data, testSolution.data);
     	
+    }
+    
+    //test for findpath method
+    @Test
+    public void testFindpath() {
+    	LCASolution testSolution = new LCASolution();
     	
+    	//test for empty DAG input
+    	assertFalse("findpath test failed - empty DAG input - return value", testSolution.findpath(null, 0, testSolution.path1));
+    	
+    	//test for regular DAG input
+    	Node root = new Node(1);
+    	root.left = new Node(2);
+    	root.right = new Node(3);
+    	root.left.left = new Node(4);
+    	Node tmp = new Node(5);
+    	root.left.right = tmp;
+    	root.right.left = new Node(6);
+    	root.right.right = new Node(7);
+    	root.right.left.left = tmp;
+    	
+    	int size = testSolution.size_traverse(root);
+        testSolution.path1 = new ArrayList<Integer>(Collections.nCopies(size, 0));
+        
+        //test for node that doesn't exist in DAG
+        assertFalse("findpath test failed - non-existing node input - return value", testSolution.findpath(root, 10, testSolution.path1));
+        
+        //test for regular inputs
+    	ArrayList<Integer> result_path = new ArrayList<Integer> ();
+    	result_path.add(2);
+    	result_path.add(1);
+    	result_path.add(1);
+    	result_path.add(0);
+    	result_path.add(1);
+    	result_path.add(0);
+    	result_path.add(2);
+    	assertTrue("findpath test failed - regular input - return value", testSolution.findpath(root, 5, testSolution.path1));
+    	assertEquals("findpath test failed - regular input - recorded path", result_path,testSolution.path1);
     	
     	
     }
